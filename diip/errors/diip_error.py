@@ -1,0 +1,2 @@
+class DIIPError(Exception):
+    pass
