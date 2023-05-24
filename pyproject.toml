@@ -1,23 +1,23 @@
 [tool.poetry]
-name = "diip"
+name = "taipan-di"
 version = "0.0.1"
-description = "Dependency Injection In Python"
+description = "Truly Amazing Inversion of control Python library Analogous to .Net's DI"
 authors = ["Billuc <billuc@hotmail.fr>"]
 license = "MIT"
 readme = "README.md"
 
-keywords = ["diip", "dependency injection", "dependency", "python"]
+keywords = ["taipan", "dependency injection", "dependency", "python"]
 
-homepage = "https://github.com/Billuc/diip"
-repository = "https://github.com/Billuc/diip"
-documentation = "https://github.com/Billuc/diip"
+homepage = "https://github.com/Billuc/taipan-di"
+repository = "https://github.com/Billuc/taipan-di"
+documentation = "https://github.com/Billuc/taipan-di"
 
 classifiers = [
     "Topic :: Software Development :: Libraries",
     "Topic :: Software Development :: Libraries :: Python Modules"
 ]
 
-include = ["diip/py.typed"]
+include = ["taipan-di/py.typed"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -36,7 +36,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
 pythonpath = [
-  ".", "diip"
+  ".", "taipan"
 ]
 
 [tool.black]

@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from diip.classes import DependencyCollection
+from taipan.classes import DependencyCollection
 
 
 def test_register_with_dataclasses():

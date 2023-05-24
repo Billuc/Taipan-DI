@@ -1,7 +1,7 @@
 from typing import cast
-from diip.classes.dependency_container import DependencyContainer
-from diip.classes.dependency_provider import DependencyProvider
-from diip.errors.diip_unregistered_error import DIIPUnregisteredError
+from taipan.classes.dependency_container import DependencyContainer
+from taipan.classes.dependency_provider import DependencyProvider
+from taipan.errors.taipan_unregistered_error import TaipanUnregisteredError
 from mocks import *
 
 

@@ -1,7 +1,7 @@
 from typing import Any, Callable, Type, TypeVar, cast
 
-from diip.interfaces import BaseDependencyProvider, BaseScope
-from diip.errors import DIIPTypeError
+from taipan.interfaces import BaseDependencyProvider, BaseScope
+from taipan.errors import TaipanTypeError
 
 T = TypeVar("T")
 
@@ -15,7 +15,7 @@ class SingletonScope(BaseScope):
             self._memoized_instance = self._creator(container)
 
         if not isinstance(self._memoized_instance, type):
-            raise DIIPTypeError("Registered instance is not of type %s", str(type))
+            raise TaipanTypeError("Registered instance is not of type %s", str(type))
 
         result = cast(T, self._memoized_instance)
         return result

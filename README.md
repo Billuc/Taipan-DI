@@ -1,8 +1,8 @@
-# DIIP
+# Taipan-DI
 
-Dependency Injection with Interfaces in Python
+Truly Amazing Inversion of control Python library Analogous to .Net's DI
 
-DIIP is a [Dependency Injection](https://en.wikipedia.org/wiki/Dependency_injection) library whose goal is to provide a behaviour similar to [.Net's DI system](https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection).
+Taipan-DI is a [Dependency Injection](https://en.wikipedia.org/wiki/Dependency_injection) library whose goal is to provide a behaviour similar to [.Net's DI system](https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection).
 
 
 ## Features
@@ -27,13 +27,13 @@ DIIP is a [Dependency Injection](https://en.wikipedia.org/wiki/Dependency_inject
 
 ### Pip
 
-> `pip install diip`
+> `pip install taipan-di`
 
 ### Poetry
 
 [Poetry](https://python-poetry.org/) is a Python dependency management and packaging tool. I actually use it for this project.
 
-> `poetry add diip`
+> `poetry add taipan-di`
 
 
 ## Usage
