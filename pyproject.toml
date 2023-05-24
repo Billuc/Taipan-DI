@@ -8,9 +8,9 @@ readme = "README.md"
 
 keywords = ["taipan", "dependency injection", "dependency", "python"]
 
-homepage = "https://github.com/Billuc/taipan-di"
-repository = "https://github.com/Billuc/taipan-di"
-documentation = "https://github.com/Billuc/taipan-di"
+homepage = "https://github.com/Billuc/Taipan-DI"
+repository = "https://github.com/Billuc/Taipan-DI"
+documentation = "https://github.com/Billuc/Taipan-DI"
 
 classifiers = [
     "Topic :: Software Development :: Libraries",
