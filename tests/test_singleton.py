@@ -1,4 +1,4 @@
-from taipan import DependencyCollection, TaipanTypeError
+from taipan_di import DependencyCollection, TaipanTypeError
 from mocks import *
 
 

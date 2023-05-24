@@ -1,7 +1,7 @@
 from typing import Any, Callable, Type, TypeVar
 
-from taipan.interfaces import BaseDependencyProvider
-from taipan.errors import TaipanTypeError
+from taipan_di.interfaces import BaseDependencyProvider
+from taipan_di.errors import TaipanTypeError
 
 from .dependency_container import DependencyContainer
 from .instanciate_service import instanciate_service

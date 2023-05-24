@@ -1,5 +1,5 @@
-from taipan.classes.dependency_container import DependencyContainer
-from taipan import TaipanUnregisteredError
+from taipan_di.classes.dependency_container import DependencyContainer
+from taipan_di import TaipanUnregisteredError
 from mocks import *
 
 def test_resolve():

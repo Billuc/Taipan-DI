@@ -1,7 +1,7 @@
 from typing import Any, Callable, Type, TypeVar, cast
 
-from taipan.interfaces import BaseDependencyProvider, BaseScope
-from taipan.errors import TaipanTypeError
+from taipan_di.interfaces import BaseDependencyProvider, BaseScope
+from taipan_di.errors import TaipanTypeError
 
 T = TypeVar("T")
 
