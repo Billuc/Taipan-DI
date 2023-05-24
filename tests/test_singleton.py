@@ -1,4 +1,4 @@
-from diip import DependencyCollection, DIIPTypeError
+from taipan import DependencyCollection, TaipanTypeError
 from mocks import *
 
 
@@ -18,7 +18,7 @@ def test_register_singleton_fails():
     try:
         services.register_singleton(MockInterface, MockWrongClass)
         assert False
-    except DIIPTypeError:
+    except TaipanTypeError:
         assert True
     except:
         assert False
@@ -45,7 +45,7 @@ def test_resolve_singleton_fails_if_no_init():
     try:
         instance = provider.resolve(MockInterface)
         assert False
-    except DIIPTypeError:
+    except TaipanTypeError:
         assert True
     except:
         assert False

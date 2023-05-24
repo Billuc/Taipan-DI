@@ -1,7 +1,7 @@
 from typing import Any, Callable, Type, TypeVar, cast
 
-from diip.interfaces import BaseDependencyProvider, BaseScope
-from diip.errors import DIIPTypeError
+from taipan.interfaces import BaseDependencyProvider, BaseScope
+from taipan.errors import TaipanTypeError
 
 T = TypeVar("T")
 
@@ -13,7 +13,7 @@ class FactoryScope(BaseScope):
         instance = self._creator(container)
 
         if not isinstance(instance, type):
-            raise DIIPTypeError("Created instance is not of type %s", str(type))
+            raise TaipanTypeError("Created instance is not of type %s", str(type))
 
         result = cast(T, instance)
         return result

@@ -1,4 +1,4 @@
-from diip.classes.dependency_collection import DependencyCollection
+from taipan.classes.dependency_collection import DependencyCollection
 
 
 def test_inject_dependency():

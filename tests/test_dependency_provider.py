@@ -1,5 +1,5 @@
-from diip.classes.dependency_container import DependencyContainer
-from diip import DIIPUnregisteredError
+from taipan.classes.dependency_container import DependencyContainer
+from taipan import TaipanUnregisteredError
 from mocks import *
 
 def test_resolve():
@@ -21,7 +21,7 @@ def test_resolve_fails():
     try:
         provider.resolve(MockInterface)
         assert False
-    except DIIPUnregisteredError:
+    except TaipanUnregisteredError:
         assert True
     except:
         assert False

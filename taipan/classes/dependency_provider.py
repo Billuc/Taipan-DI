@@ -1,7 +1,7 @@
 from typing import Dict, Type, TypeVar
 
-from diip.errors import DIIPUnregisteredError
-from diip.interfaces import BaseDependencyProvider, BaseScope
+from taipan.errors import TaipanUnregisteredError
+from taipan.interfaces import BaseDependencyProvider, BaseScope
 
 T = TypeVar("T")
 
@@ -15,7 +15,7 @@ class DependencyProvider(BaseDependencyProvider):
 
     def resolve(self, type: Type[T]) -> T:
         if not type in self._services:
-            raise DIIPUnregisteredError("Service %s is not registered", str(type))
+            raise TaipanUnregisteredError("Service %s is not registered", str(type))
 
         service = self._services[type]
         result = service.get_instance(type, self)

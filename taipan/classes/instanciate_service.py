@@ -15,8 +15,8 @@ from typing import (
 )
 from typing_extensions import Protocol
 
-from diip.interfaces import BaseDependencyProvider
-from diip.errors import DIIPInjectionError
+from taipan.interfaces import BaseDependencyProvider
+from taipan.errors import TaipanInjectionError
 
 
 S = TypeVar("S")
@@ -124,7 +124,7 @@ def instanciate_service(service: Type[S], provider: BaseDependencyProvider) -> S
             missing_parameters = [
                 arg for arg in parameters_name if arg not in resolved_kwargs
             ]
-            raise DIIPInjectionError(
+            raise TaipanInjectionError(
                 "Cannot execute function without required parameters. "
                 + f"Did you forget to bind the following parameters: `{'`, `'.join(missing_parameters)}`?"
             )

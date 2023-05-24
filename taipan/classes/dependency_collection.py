@@ -1,7 +1,7 @@
 from typing import Any, Callable, Type, TypeVar
 
-from diip.interfaces import BaseDependencyProvider
-from diip.errors import DIIPTypeError
+from taipan.interfaces import BaseDependencyProvider
+from taipan.errors import TaipanTypeError
 
 from .dependency_container import DependencyContainer
 from .instanciate_service import instanciate_service
@@ -59,13 +59,13 @@ class DependencyCollection:
 
     def _assert_instance_type(self, instance: Any, type: Type) -> None:
         if not isinstance(instance, type):
-            raise DIIPTypeError("Provided instance is not of type %s", str(type))
+            raise TaipanTypeError("Provided instance is not of type %s", str(type))
 
     def _assert_implementation_derives_interface(
         self, implementation_type: Type[U], interface_type: Type[T]
     ) -> None:
         if not issubclass(implementation_type, interface_type):
-            raise DIIPTypeError(
+            raise TaipanTypeError(
                 "Implementation type %s must derive from interface type %s",
                 str(implementation_type),
                 str(interface_type),

@@ -1,6 +1,6 @@
 from typing import Dict, Type, TypeVar, cast
 
-from diip.interfaces import BaseDependencyContainer, BaseDependencyProvider, BaseScope
+from taipan.interfaces import BaseDependencyContainer, BaseDependencyProvider, BaseScope
 
 from .dependency_provider import DependencyProvider
 

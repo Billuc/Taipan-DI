@@ -1,7 +1,7 @@
 from typing import Type, TypeVar
 
-from diip import DIIPTypeError, BaseDependencyProvider
-from diip.interfaces import BaseScope
+from taipan import TaipanTypeError, BaseDependencyProvider
+from taipan.interfaces import BaseScope
 
 T = TypeVar("T")
 
@@ -31,6 +31,6 @@ class MockWrongClass(MockWrongInterface):
 class MockScope(BaseScope):
     def get_instance(self, type: Type[T], container: BaseDependencyProvider) -> T:
         if not issubclass(MockClass, type):
-            raise DIIPTypeError("Instance is not of type %s", str(type))
+            raise TaipanTypeError("Instance is not of type %s", str(type))
 
         return MockClass()

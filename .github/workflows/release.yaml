@@ -3,7 +3,7 @@ name: Publish to PyPI
 on:
   push:
     tags:
-      - "*.*.*"
+      - '*.*.*'
 
 jobs:
   pypi:
@@ -29,8 +29,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: diip-${{ steps.tag.outputs.tag }}.tar.gz
-          path: dist/diip-${{ steps.tag.outputs.tag }}.tar.gz
+          name: taipan-di-${{ steps.tag.outputs.tag }}.tar.gz
+          path: dist/taipan-di-${{ steps.tag.outputs.tag }}.tar.gz
       - name: Publish release
         env:
           POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}
