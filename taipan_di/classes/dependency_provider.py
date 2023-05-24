@@ -1,7 +1,7 @@
 from typing import Dict, Type, TypeVar
 
-from taipan.errors import TaipanUnregisteredError
-from taipan.interfaces import BaseDependencyProvider, BaseScope
+from taipan_di.errors import TaipanUnregisteredError
+from taipan_di.interfaces import BaseDependencyProvider, BaseScope
 
 T = TypeVar("T")
 

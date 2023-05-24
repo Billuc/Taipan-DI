@@ -15,8 +15,8 @@ from typing import (
 )
 from typing_extensions import Protocol
 
-from taipan.interfaces import BaseDependencyProvider
-from taipan.errors import TaipanInjectionError
+from taipan_di.interfaces import BaseDependencyProvider
+from taipan_di.errors import TaipanInjectionError
 
 
 S = TypeVar("S")

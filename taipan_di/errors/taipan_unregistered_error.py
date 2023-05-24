@@ -1,4 +1,4 @@
-from taipan.errors.taipan_error import TaipanError
+from taipan_di.errors.taipan_error import TaipanError
 
 
 class TaipanUnregisteredError(TaipanError):

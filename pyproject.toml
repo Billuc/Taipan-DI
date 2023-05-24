@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "taipan-di"
+name = "Taipan-DI"
 version = "0.0.1"
 description = "Truly Amazing Inversion of control Python library Analogous to .Net's DI"
 authors = ["Billuc <billuc@hotmail.fr>"]
@@ -17,7 +17,7 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules"
 ]
 
-include = ["taipan-di/py.typed"]
+include = ["taipan_di/py.typed"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -36,7 +36,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
 pythonpath = [
-  ".", "taipan"
+  ".", "taipan_di"
 ]
 
 [tool.black]

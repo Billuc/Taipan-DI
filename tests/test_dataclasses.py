@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from taipan.classes import DependencyCollection
+from taipan_di.classes import DependencyCollection
 
 
 def test_register_with_dataclasses():
