@@ -60,3 +60,16 @@ def test_contains_singleton():
     assert provider.contains(MockInterface)
     assert not provider.contains(MockClass)
     assert not provider.contains(MockWrongInterface)
+    
+    
+def test_resolve_singleton_no_interface():
+    services = DependencyCollection()
+    services.register_singleton(MockClass)
+    
+    provider = services.build()
+    instance = provider.resolve(MockClass)
+    
+    assert provider.contains(MockClass)
+    assert isinstance(instance, MockClass)
+    assert instance is not None
+    assert instance == provider.resolve(MockClass)

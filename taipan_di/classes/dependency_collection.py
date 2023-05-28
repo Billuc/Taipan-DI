@@ -2,6 +2,7 @@ from typing import Any, Callable, Type, TypeVar
 
 from taipan_di.interfaces import BaseDependencyProvider
 from taipan_di.errors import TaipanTypeError
+from typeguard import check_type
 
 from .dependency_container import DependencyContainer
 from .instanciate_service import instanciate_service
@@ -31,8 +32,11 @@ class DependencyCollection:
         self.register_singleton_creator(type, creator)
 
     def register_singleton(
-        self, interface_type: Type[T], implementation_type: Type[U]
+        self, interface_type: Type[T], implementation_type: Type[U] = None
     ) -> None:
+        if implementation_type is None:
+            implementation_type = interface_type
+            
         self._assert_implementation_derives_interface(implementation_type, interface_type)
 
         creator = lambda provider: instanciate_service(implementation_type, provider)
@@ -45,8 +49,11 @@ class DependencyCollection:
         self._container.register(type, service)
 
     def register_factory(
-        self, interface_type: Type[T], implementation_type: Type[U]
+        self, interface_type: Type[T], implementation_type: Type[U] = None
     ) -> None:
+        if implementation_type is None:
+            implementation_type = interface_type
+            
         self._assert_implementation_derives_interface(implementation_type, interface_type)
 
         creator = lambda provider: instanciate_service(implementation_type, provider)
@@ -58,8 +65,10 @@ class DependencyCollection:
     # Private methods
 
     def _assert_instance_type(self, instance: Any, type: Type) -> None:
-        if not isinstance(instance, type):
-            raise TaipanTypeError("Provided instance is not of type %s", str(type))
+        try:
+            check_type(instance, type)
+        except:
+            raise TaipanTypeError(f"Provided instance is not of type {str(type)}")
 
     def _assert_implementation_derives_interface(
         self, implementation_type: Type[U], interface_type: Type[T]
