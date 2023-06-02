@@ -1,7 +1,6 @@
-from typing import Any, Callable, Type, TypeVar
+from typing import Callable, Type, TypeVar
 
 from taipan_di.interfaces import BaseDependencyProvider
-from taipan_di.errors import TaipanTypeError
 
 from .dependency_container import DependencyContainer
 from .instanciate_service import instanciate_service
@@ -21,52 +20,66 @@ class DependencyCollection:
     def register_singleton_creator(
         self, type: Type[T], creator: Callable[[BaseDependencyProvider], T]
     ) -> None:
+        """
+        Registers a service as a singleton by specifying how to create its instance.
+        """
         service = SingletonScope(creator)
         self._container.register(type, service)
 
     def register_singleton_instance(self, type: Type[T], instance: T) -> None:
-        self._assert_instance_type(instance, type)
-
+        """
+        Registers a service as a singleton by providing the instance to return.
+        """
         creator = lambda provider: instance
         self.register_singleton_creator(type, creator)
 
     def register_singleton(
-        self, interface_type: Type[T], implementation_type: Type[U]
+        self, interface_type: Type[T], implementation_type: Type[U] = None
     ) -> None:
-        self._assert_implementation_derives_interface(implementation_type, interface_type)
-
+        """
+        Register a service as a singleton by specifying the implementation type to use.
+        
+        On resolve, the implementation will be instanciated with its dependencies automatically resolved.
+        
+        If the implementation type isn't provided, the interface type will be used as the implementation type.
+        
+        If the implementation type don't possess an __init__ method, the resolve will fail.
+        """
+        if implementation_type is None:
+            implementation_type = interface_type
+            
         creator = lambda provider: instanciate_service(implementation_type, provider)
         self.register_singleton_creator(interface_type, creator)
 
     def register_factory_creator(
         self, type: Type[T], creator: Callable[[BaseDependencyProvider], T]
     ) -> None:
+        """
+        Registers a service as a factory by specifying how to create its instances.
+        """
         service = FactoryScope(creator)
         self._container.register(type, service)
 
     def register_factory(
-        self, interface_type: Type[T], implementation_type: Type[U]
+        self, interface_type: Type[T], implementation_type: Type[U] = None
     ) -> None:
-        self._assert_implementation_derives_interface(implementation_type, interface_type)
+        """
+        Register a service as a factory by specifying the implementation type to use.
+        
+        On resolve, the implementation will be instanciated with its dependencies automatically resolved.
+        
+        If the implementation type isn't provided, the interface type will be used as the implementation type.
+        
+        If the implementation type don't possess an __init__ method, the resolve will fail.
+        """
+        if implementation_type is None:
+            implementation_type = interface_type
 
         creator = lambda provider: instanciate_service(implementation_type, provider)
         self.register_factory_creator(interface_type, creator)
 
     def build(self) -> BaseDependencyProvider:
+        """
+        Builds the service provider containing the services registered by this collection.
+        """
         return self._container.build()
-
-    # Private methods
-
-    def _assert_instance_type(self, instance: Any, type: Type) -> None:
-        if not isinstance(instance, type):
-            raise TaipanTypeError("Provided instance is not of type %s", str(type))
-
-    def _assert_implementation_derives_interface(
-        self, implementation_type: Type[U], interface_type: Type[T]
-    ) -> None:
-        if not issubclass(implementation_type, interface_type):
-            raise TaipanTypeError(
-                "Implementation type %s must derive from interface type %s",
-                str(implementation_type),
-                str(interface_type),
-            )

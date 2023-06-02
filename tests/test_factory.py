@@ -12,16 +12,15 @@ def test_register_factory_succeeds():
         assert False
 
 
-def test_register_factory_fails():
+def test_register_factory_with_wrong_class_works():
     services = DependencyCollection()
+    services.register_factory(MockInterface, MockWrongClass)
 
-    try:
-        services.register_factory(MockInterface, MockWrongClass)
-        assert False
-    except TaipanTypeError:
-        assert True
-    except:
-        assert False
+    provider = services.build()
+    instance = provider.resolve(MockInterface)
+    
+    assert isinstance(instance, MockWrongClass)
+    assert not isinstance(instance, MockInterface)
 
 
 def test_resolve_factory():
@@ -60,3 +59,16 @@ def test_contains_factory():
     assert provider.contains(MockInterface)
     assert not provider.contains(MockClass)
     assert not provider.contains(MockWrongInterface)
+    
+
+def test_resolve_factory_no_interface():
+    services = DependencyCollection()
+    services.register_factory(MockClass)
+    
+    provider = services.build()
+    instance = provider.resolve(MockClass)
+    
+    assert provider.contains(MockClass)
+    assert isinstance(instance, MockClass)
+    assert instance is not None
+    assert instance != provider.resolve(MockClass)
