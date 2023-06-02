@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "Taipan-DI"
-version = "0.0.2"
+version = "0.0.3"
 description = "Truly Amazing Inversion of control Python library Analogous to .Net's DI"
 authors = ["Billuc <billuc@hotmail.fr>"]
 license = "MIT"
