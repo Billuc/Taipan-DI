@@ -22,7 +22,6 @@ include = ["taipan_di/py.typed"]
 [tool.poetry.dependencies]
 python = "^3.9"
 typing-extensions = "^4.6.0"
-typeguard = "^4.0.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.3.1"
