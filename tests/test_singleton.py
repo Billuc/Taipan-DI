@@ -12,17 +12,15 @@ def test_register_singleton_succeeds():
         assert False
 
 
-def test_register_singleton_fails():
+def test_register_singleton_with_wrong_class_works():
     services = DependencyCollection()
+    services.register_singleton(MockInterface, MockWrongClass)
 
-    try:
-        services.register_singleton(MockInterface, MockWrongClass)
-        assert False
-    except TaipanTypeError:
-        assert True
-    except:
-        assert False
-
+    provider = services.build()
+    instance = provider.resolve(MockInterface)
+    
+    assert isinstance(instance, MockWrongClass)
+    assert not isinstance(instance, MockInterface)
 
 def test_resolve_singleton():
     services = DependencyCollection()

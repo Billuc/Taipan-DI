@@ -34,6 +34,13 @@ def test_resolve_custom_generics():
     
     provider = services.build()
     instance = provider.resolve(MyGenericInterface)
+    
+def test_resolve_custom_generics_with_type():
+    services = DependencyCollection()
+    services.register_factory(MyGenericInterface[str], MyGenericImplementation)
+    
+    provider = services.build()
+    instance = provider.resolve(MyGenericInterface[str])
 
 
 T = TypeVar("T")

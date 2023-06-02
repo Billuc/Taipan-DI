@@ -12,16 +12,15 @@ def test_register_factory_succeeds():
         assert False
 
 
-def test_register_factory_fails():
+def test_register_factory_with_wrong_class_works():
     services = DependencyCollection()
+    services.register_factory(MockInterface, MockWrongClass)
 
-    try:
-        services.register_factory(MockInterface, MockWrongClass)
-        assert False
-    except TaipanTypeError:
-        assert True
-    except:
-        assert False
+    provider = services.build()
+    instance = provider.resolve(MockInterface)
+    
+    assert isinstance(instance, MockWrongClass)
+    assert not isinstance(instance, MockInterface)
 
 
 def test_resolve_factory():
