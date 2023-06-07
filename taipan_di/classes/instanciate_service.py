@@ -125,7 +125,7 @@ def instanciate_service(service: Type[S], provider: BaseDependencyProvider) -> S
                 arg for arg in parameters_name if arg not in resolved_kwargs
             ]
             raise TaipanInjectionError(
-                "Cannot execute function without required parameters. "
+                f"Cannot instanciate service {str(service)} without required parameters. "
                 + f"Did you forget to bind the following parameters: `{'`, `'.join(missing_parameters)}`?"
             )
 

@@ -1,2 +1,4 @@
 from .factory_scope import FactoryScope
 from .singleton_scope import SingletonScope
+from .chain_of_responsibility_scope import ChainOfResponsibilityScope
+from .pipeline_scope import PipelineScope
