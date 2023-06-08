@@ -4,7 +4,13 @@ from taipan_di.interfaces import BaseDependencyProvider
 
 from .dependency_container import DependencyContainer
 from .instanciate_service import instanciate_service
-from .scopes import FactoryScope, SingletonScope, ChainOfResponsibilityScope, PipelineScope
+from .scopes import FactoryScope, SingletonScope
+from .tools import (
+    PipelineLink,
+    PipelineRegistrator,
+    ChainOfResponsibilityLink,
+    ChainOfResponsibilityRegistrator,
+)
 
 
 T = TypeVar("T")
@@ -85,32 +91,30 @@ class DependencyCollection:
     ## Chain of Responsibility
 
     def register_chain_of_responsibility(
-        self, interface_type: Type[T], links: List[Type]
-    ) -> None:
+        self, interface_type: Type[ChainOfResponsibilityLink[T, U]], as_singleton=False
+    ) -> ChainOfResponsibilityRegistrator[T, U]:
         """
-        Register a service as a chain of responsibility by specifying its links
+        Initiate the registration of a service as a chain of responsibility.
+
+        Returns a registrator to be used to add the links and then register the service.
         """
-        links_creators = [
-            (lambda provider: instanciate_service(link, provider)) for link in links
-        ]
-        
-        service = ChainOfResponsibilityScope(links_creators)
-        self._container.register(type, service)
+        registrator = ChainOfResponsibilityRegistrator[T, U](
+            interface_type, self, as_singleton
+        )
+        return registrator
 
     ## Pipeline
 
     def register_pipeline(
-        self, interface_type: Type[T], links: List[Type]
-    ) -> None:
+        self, interface_type: Type[PipelineLink[T, U]], as_singleton=False
+    ) -> PipelineRegistrator[T, U]:
         """
-        Register a service as a pipeline by specifying its links
+        Initiate the registration of a service as a pipeline.
+
+        Returns a registrator to be used to add the links and then register the service.
         """
-        links_creators = [
-            (lambda provider: instanciate_service(link, provider)) for link in links
-        ]
-        
-        service = PipelineScope(links_creators)
-        self._container.register(type, service)
+        registrator = PipelineRegistrator[T, U](interface_type, self, as_singleton)
+        return registrator
 
     ## Build
 
