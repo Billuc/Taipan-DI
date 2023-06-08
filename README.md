@@ -11,9 +11,10 @@ Taipan-DI is a [Dependency Injection](https://en.wikipedia.org/wiki/Dependency_i
  - No decorators
  - No hidden behaviour (what you write is what you get)
  - Automatic dependency injection on service resolving
- - Type-checking
+ - Type hinting
  - No global container by default
  - Singleton and factory scopes
+ - Register pipelines and chains of responsibility easily
 
 
 ## Constraints
@@ -53,6 +54,8 @@ You can also provide a creator method or an instance (for singletons only) that 
  - `services.register_singleton_creator(Type, lambda provider: create(provider))`
  - `services.register_singleton_instance(Type, instance)`
 
+You can also register chains of responsibility and pipelines. Examples are given in the test files.
+
 Once your services are registered, you have to build a dependency provider which will be used to resolve services : 
 
 > `provider = services.build()`<br/>
@@ -63,7 +66,7 @@ If `ImplementationType` has a constructor dependency, it will be automatically r
 
 ## Inspirations
 
-This library is partially based on the [*kink*](https://pypi.org/project/kink/) dependency injection library. I was using kink on a project previously but it didn't fit all my requirements.
+This library is partially based on the [*kink*](https://pypi.org/project/kink/) dependency injection library. I was using kink on another project previously but it didn't fit all my requirements.
 
 I also took inspiration from the [*injector*](https://pypi.org/project/injector/) library and .Net's dependency injection system.
 
@@ -75,6 +78,5 @@ If there is something you want to see added or if something does not work as you
 
 Here is a list of features I have in mind and will be working on :
 
- - Register singletons and factories without specifying the interface
  - Create configuration from environment or configuration files
 

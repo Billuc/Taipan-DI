@@ -1,6 +1,6 @@
 from typing import Generic, List, TypeVar
 
-from taipan_di.classes.tools.chain_of_responsibility_link import ChainOfResponsibilityLink
+from taipan_di.classes.tools import ChainOfResponsibilityLink
 from taipan_di.errors import TaipanRegistrationError
 
 T = TypeVar("T")

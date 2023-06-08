@@ -1,4 +1,4 @@
-from typing import Callable, List, Type, TypeVar, Union
+from typing import Callable, Type, TypeVar
 
 from taipan_di.interfaces import BaseDependencyProvider
 
@@ -42,7 +42,7 @@ class DependencyCollection:
         self.register_singleton_creator(type, creator)
 
     def register_singleton(
-        self, interface_type: Type[T], implementation_type: Type[U] = None
+        self, interface_type: Type[T], implementation_type: Type[T] = None
     ) -> None:
         """
         Register a service as a singleton by specifying the implementation type to use.
@@ -71,7 +71,7 @@ class DependencyCollection:
         self._container.register(type, service)
 
     def register_factory(
-        self, interface_type: Type[T], implementation_type: Type[U] = None
+        self, interface_type: Type[T], implementation_type: Type[T] = None
     ) -> None:
         """
         Register a service as a factory by specifying the implementation type to use.

@@ -8,7 +8,7 @@ from taipan_di.interfaces import BaseDependencyProvider
 from taipan_di.classes import instanciate_service
 
 if TYPE_CHECKING:
-    from taipan_di.classes.dependency_collection import DependencyCollection
+    from taipan_di.classes import DependencyCollection
 
 T = TypeVar("T")
 U = TypeVar("U")
