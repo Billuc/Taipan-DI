@@ -13,7 +13,7 @@ jobs:
       - name: Get tag
         id: tag
         run: |
-          echo ::set-output name=tag::${GITHUB_REF#refs/tags/}
+          echo tag=${GITHUB_REF#refs/tags/} >> $GITHUB_OUTPUT
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
@@ -29,8 +29,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: taipan-di-${{ steps.tag.outputs.tag }}.tar.gz
-          path: dist/taipan-di-${{ steps.tag.outputs.tag }}.tar.gz
+          name: taipan_di-${{ steps.tag.outputs.tag }}.tar.gz
+          path: dist/taipan_di-${{ steps.tag.outputs.tag }}.tar.gz
       - name: Publish release
         env:
           POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}

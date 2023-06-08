@@ -15,7 +15,7 @@ class DependencyProvider(BaseDependencyProvider):
 
     def resolve(self, type: Type[T]) -> T:
         if not type in self._services:
-            raise TaipanUnregisteredError("Service %s is not registered", str(type))
+            raise TaipanUnregisteredError(f"Service {str(type)} is not registered")
 
         service = self._services[type]
         result = service.get_instance(type, self)
