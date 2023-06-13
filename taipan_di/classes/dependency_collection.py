@@ -12,6 +12,7 @@ from .tools import (
     ChainOfResponsibilityRegistrator,
 )
 
+__all__ = ["DependencyCollection"]
 
 T = TypeVar("T")
 U = TypeVar("U")

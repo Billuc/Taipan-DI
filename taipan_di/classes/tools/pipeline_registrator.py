@@ -10,6 +10,8 @@ from taipan_di.classes import instanciate_service
 if TYPE_CHECKING:
     from taipan_di.classes import DependencyCollection
 
+__all__ = ["PipelineRegistrator"]
+
 T = TypeVar("T")
 U = TypeVar("U")
 

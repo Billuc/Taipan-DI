@@ -3,6 +3,8 @@ from typing import Dict, Type, TypeVar
 from taipan_di.errors import TaipanUnregisteredError
 from taipan_di.interfaces import BaseDependencyProvider, BaseScope
 
+__all__ = ["DependencyProvider"]
+
 T = TypeVar("T")
 
 

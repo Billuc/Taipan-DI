@@ -4,7 +4,10 @@ from typing import Type, TypeVar
 from .base_dependency_provider import BaseDependencyProvider
 from .base_scope import BaseScope
 
+__all__ = ["BaseDependencyContainer"]
+
 T = TypeVar("T")
+
 
 class BaseDependencyContainer(metaclass=abc.ABCMeta):
     @classmethod
@@ -19,14 +22,14 @@ class BaseDependencyContainer(metaclass=abc.ABCMeta):
             or NotImplemented
         )
 
-    @abc.abstractmethod    
+    @abc.abstractmethod
     def contains(self, type: Type[T]) -> bool:
         raise NotImplementedError
 
-    @abc.abstractmethod    
+    @abc.abstractmethod
     def register(self, type: Type, service: BaseScope) -> None:
         raise NotImplementedError
-    
-    @abc.abstractmethod    
+
+    @abc.abstractmethod
     def build(self) -> BaseDependencyProvider:
         raise NotImplementedError

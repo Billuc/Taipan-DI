@@ -18,11 +18,9 @@ from typing_extensions import Protocol
 from taipan_di.interfaces import BaseDependencyProvider
 from taipan_di.errors import TaipanInjectionError, TaipanTypeError
 
+__all__ = ["instanciate_service"]
 
 S = TypeVar("S")
-
-ServiceDefinition = Type[S]
-ServiceResult = S
 
 Undefined = NewType("Undefined", int)
 
@@ -105,10 +103,10 @@ def instanciate_service(service: Type[S], provider: BaseDependencyProvider) -> S
     constructor = getattr(service, "__init__")
 
     # ignore abstract class initialiser and protocol initialisers
-    if (
-        constructor in [ABC.__init__, _no_init] or constructor.__name__ == "_no_init"
-    ):
-        raise TaipanTypeError(f"{str(service)} has no __init__, cannot instanciate the service")
+    if constructor in [ABC.__init__, _no_init] or constructor.__name__ == "_no_init":
+        raise TaipanTypeError(
+            f"{str(service)} has no __init__, cannot instanciate the service"
+        )
 
     # Add class definition to dependency injection
     parameters = _inspect_function_arguments(constructor)
