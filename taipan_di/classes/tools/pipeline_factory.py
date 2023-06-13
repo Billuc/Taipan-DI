@@ -3,6 +3,8 @@ from typing import Generic, List, TypeVar
 from taipan_di.classes.tools import PipelineLink
 from taipan_di.errors import TaipanRegistrationError
 
+__all__ = ["PipelineFactory"]
+
 T = TypeVar("T")
 U = TypeVar("U")
 

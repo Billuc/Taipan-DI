@@ -4,6 +4,8 @@ from taipan_di.interfaces import BaseDependencyContainer, BaseDependencyProvider
 
 from .dependency_provider import DependencyProvider
 
+__all__ = ["DependencyContainer"]
+
 T = TypeVar("T")
 
 
@@ -16,7 +18,7 @@ class DependencyContainer(BaseDependencyContainer):
 
     def register(self, type: Type, service: BaseScope) -> None:
         self._services[type] = service
-        
+
     def build(self) -> BaseDependencyProvider:
         provider = DependencyProvider(self._services)
         return provider

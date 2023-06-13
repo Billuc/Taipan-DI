@@ -2,7 +2,10 @@ from typing import Any, Callable, Type, TypeVar, cast
 
 from taipan_di.interfaces import BaseDependencyProvider, BaseScope
 
+__all__ = ["SingletonScope"]
+
 T = TypeVar("T")
+
 
 class SingletonScope(BaseScope):
     def __init__(self, creator: Callable[[BaseDependencyProvider], Any]) -> None:

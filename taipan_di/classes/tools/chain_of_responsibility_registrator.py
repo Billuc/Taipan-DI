@@ -10,6 +10,8 @@ from taipan_di.classes import instanciate_service
 if TYPE_CHECKING:
     from taipan_di.classes import DependencyCollection
 
+__all__ = ["ChainOfResponsibilityRegistrator"]
+
 T = TypeVar("T")
 U = TypeVar("U")
 
@@ -26,7 +28,9 @@ class ChainOfResponsibilityRegistrator(Generic[T, U]):
         self._as_singleton = as_singleton
         self._link_types: List[Type[ChainOfResponsibilityLink[T, U]]] = []
 
-    def add(self, link: Type[ChainOfResponsibilityLink[T, U]]) -> ChainOfResponsibilityRegistrator[T, U]:
+    def add(
+        self, link: Type[ChainOfResponsibilityLink[T, U]]
+    ) -> ChainOfResponsibilityRegistrator[T, U]:
         self._link_types.append(link)
         return self
 
@@ -36,7 +40,9 @@ class ChainOfResponsibilityRegistrator(Generic[T, U]):
                 f"Pipeline[{str(T)}, {str(U)}] is empty ! Add at least one link"
             )
 
-        def create_chain_of_responsibility(provider: BaseDependencyProvider) -> ChainOfResponsibilityLink[T, U]:
+        def create_chain_of_responsibility(
+            provider: BaseDependencyProvider,
+        ) -> ChainOfResponsibilityLink[T, U]:
             factory = ChainOfResponsibilityFactory[T, U]()
 
             for link_type in self._link_types:
@@ -46,6 +52,10 @@ class ChainOfResponsibilityRegistrator(Generic[T, U]):
             return factory.build()
 
         if self._as_singleton:
-            self._services.register_singleton_creator(self._interface_type, create_chain_of_responsibility)
+            self._services.register_singleton_creator(
+                self._interface_type, create_chain_of_responsibility
+            )
         else:
-            self._services.register_factory_creator(self._interface_type, create_chain_of_responsibility)
+            self._services.register_factory_creator(
+                self._interface_type, create_chain_of_responsibility
+            )

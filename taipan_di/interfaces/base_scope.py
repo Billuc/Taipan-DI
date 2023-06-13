@@ -3,6 +3,8 @@ from typing import Type, TypeVar
 
 from .base_dependency_provider import BaseDependencyProvider
 
+__all__ = ["BaseScope"]
+
 T = TypeVar("T")
 
 
