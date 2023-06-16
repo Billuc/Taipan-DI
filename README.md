@@ -14,7 +14,7 @@ Taipan-DI is a [Dependency Injection](https://en.wikipedia.org/wiki/Dependency_i
  - Type hinting
  - No global container by default
  - Singleton and factory scopes
- - Register pipelines and chains of responsibility easily
+ - Register pipelines easily
 
 
 ## Constraints
@@ -54,7 +54,7 @@ You can also provide a creator method or an instance (for singletons only) that 
  - `services.register_singleton_creator(Type, lambda provider: create(provider))`
  - `services.register_singleton_instance(Type, instance)`
 
-You can also register chains of responsibility and pipelines. Examples are given in the test files.
+You can also register pipelines. Examples are given in the test files.
 
 Once your services are registered, you have to build a dependency provider which will be used to resolve services : 
 
@@ -78,5 +78,6 @@ If there is something you want to see added or if something does not work as you
 
 Here is a list of features I have in mind and will be working on :
 
+ - Modify the registration process / methods to better handle type conditions and protocols
  - Create configuration from environment or configuration files
 
