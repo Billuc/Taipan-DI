@@ -18,7 +18,7 @@ class BaseDependencyProvider(metaclass=abc.ABCMeta):
         )
 
     @abc.abstractmethod
-    def contains(self, type: Type[T]) -> bool:
+    def contains(self, type: Type) -> bool:
         """
         Checks if the requested type is registered in the provider's services
         """

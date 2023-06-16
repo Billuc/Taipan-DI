@@ -1,16 +1,11 @@
-from typing import Callable, Type, TypeVar
+from typing import Callable, Optional, Type, TypeVar
 
 from taipan_di.interfaces import BaseDependencyProvider
 
 from .dependency_container import DependencyContainer
 from .instanciate_service import instanciate_service
 from .scopes import FactoryScope, SingletonScope
-from .tools import (
-    PipelineLink,
-    PipelineRegistrator,
-    ChainOfResponsibilityLink,
-    ChainOfResponsibilityRegistrator,
-)
+from .tools import PipelineLink, PipelineRegistrator
 
 __all__ = ["DependencyCollection"]
 
@@ -43,7 +38,7 @@ class DependencyCollection:
         self.register_singleton_creator(type, creator)
 
     def register_singleton(
-        self, interface_type: Type[T], implementation_type: Type[T] = None
+        self, interface_type: Type[T], implementation_type: Optional[Type[T]] = None
     ) -> None:
         """
         Register a service as a singleton by specifying the implementation type to use.
@@ -72,7 +67,7 @@ class DependencyCollection:
         self._container.register(type, service)
 
     def register_factory(
-        self, interface_type: Type[T], implementation_type: Type[T] = None
+        self, interface_type: Type[T], implementation_type: Optional[Type[T]] = None
     ) -> None:
         """
         Register a service as a factory by specifying the implementation type to use.
@@ -88,21 +83,6 @@ class DependencyCollection:
 
         creator = lambda provider: instanciate_service(implementation_type, provider)
         self.register_factory_creator(interface_type, creator)
-
-    ## Chain of Responsibility
-
-    def register_chain_of_responsibility(
-        self, interface_type: Type[ChainOfResponsibilityLink[T, U]], as_singleton=False
-    ) -> ChainOfResponsibilityRegistrator[T, U]:
-        """
-        Initiate the registration of a service as a chain of responsibility.
-
-        Returns a registrator to be used to add the links and then register the service.
-        """
-        registrator = ChainOfResponsibilityRegistrator[T, U](
-            interface_type, self, as_singleton
-        )
-        return registrator
 
     ## Pipeline
 

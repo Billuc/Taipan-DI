@@ -12,7 +12,7 @@ class DependencyProvider(BaseDependencyProvider):
     def __init__(self, services: Dict[Type, BaseScope]) -> None:
         self._services = services.copy()
 
-    def contains(self, type: Type[T]) -> bool:
+    def contains(self, type: Type) -> bool:
         return type in self._services
 
     def resolve(self, type: Type[T]) -> T:

@@ -1,4 +1,4 @@
-from .tools import ChainOfResponsibilityLink, PipelineLink
+from .tools import PipelineLink
 from .dependency_collection import DependencyCollection
 
-__all__ = ["ChainOfResponsibilityLink", "DependencyCollection", "PipelineLink"]
+__all__ = ["DependencyCollection", "PipelineLink"]
