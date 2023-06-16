@@ -7,7 +7,7 @@ BaseGreetingProvider = PipelineLink[str, str]
 
 class NameProvider(BaseGreetingProvider):
     def _handle(self, request: str, next: Callable[[str], str]) -> str:
-        name = request if request is not None else "World"
+        name = request or "World"
         
         return next(name) or name
         
@@ -48,7 +48,7 @@ def test_register_pipeline():
 
 def test_not_contained_if_not_registered():
     services = DependencyCollection()
-    services.register_chain_of_responsibility(BaseGreetingProvider)\
+    services.register_pipeline(BaseGreetingProvider)\
         .add(NameProvider)\
         .add(SalutationAdder)\
         .add(SuffixAdder)\
@@ -59,7 +59,7 @@ def test_not_contained_if_not_registered():
     
 def test_resolve_pipeline():
     services = DependencyCollection()
-    services.register_chain_of_responsibility(BaseGreetingProvider)\
+    services.register_pipeline(BaseGreetingProvider)\
         .add(NameProvider)\
         .add(SalutationAdder)\
         .add(SuffixAdder)\
@@ -74,7 +74,7 @@ def test_resolve_pipeline():
     
 def test_resolve_pipeline_as_singleton():
     services = DependencyCollection()
-    services.register_chain_of_responsibility(BaseGreetingProvider, True)\
+    services.register_pipeline(BaseGreetingProvider, True)\
         .add(NameProvider)\
         .add(SalutationAdder)\
         .add(SuffixAdder)\
@@ -89,7 +89,7 @@ def test_resolve_pipeline_as_singleton():
     
 def test_pipeline_exec():
     services = DependencyCollection()
-    services.register_chain_of_responsibility(BaseGreetingProvider)\
+    services.register_pipeline(BaseGreetingProvider)\
         .add(NameProvider)\
         .add(SalutationAdder)\
         .add(SuffixAdder)\
@@ -99,12 +99,12 @@ def test_pipeline_exec():
     instance = provider.resolve(BaseGreetingProvider)
     
     assert instance.exec("John") == "Hi John, how are you ?"
-    assert instance.exec(None) == "Hi World, how are you ?"
+    assert instance.exec("") == "Hi World, how are you ?"
     
     
 def test_exit_link():
     services = DependencyCollection()
-    services.register_chain_of_responsibility(BaseGreetingProvider)\
+    services.register_pipeline(BaseGreetingProvider)\
         .add(AdminDetector)\
         .add(NameProvider)\
         .register()
@@ -114,4 +114,4 @@ def test_exit_link():
     
     assert instance.exec("admin") == "Oh hi admin ! What can I do for you ?"
     assert instance.exec("John") == "John"
-    assert instance.exec(None) == "World"
+    assert instance.exec("") == "World"

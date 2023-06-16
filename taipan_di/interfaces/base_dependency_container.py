@@ -1,12 +1,10 @@
 import abc
-from typing import Type, TypeVar
+from typing import Type
 
 from .base_dependency_provider import BaseDependencyProvider
 from .base_scope import BaseScope
 
 __all__ = ["BaseDependencyContainer"]
-
-T = TypeVar("T")
 
 
 class BaseDependencyContainer(metaclass=abc.ABCMeta):
@@ -23,7 +21,7 @@ class BaseDependencyContainer(metaclass=abc.ABCMeta):
         )
 
     @abc.abstractmethod
-    def contains(self, type: Type[T]) -> bool:
+    def contains(self, type: Type) -> bool:
         raise NotImplementedError
 
     @abc.abstractmethod

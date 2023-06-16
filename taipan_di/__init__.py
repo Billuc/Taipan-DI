@@ -6,11 +6,10 @@ from .errors import (
     TaipanUnregisteredError,
 )
 from .interfaces import BaseDependencyProvider
-from .classes import DependencyCollection, PipelineLink, ChainOfResponsibilityLink
+from .classes import DependencyCollection, PipelineLink
 
 __all__ = [
     "BaseDependencyProvider",
-    "ChainOfResponsibilityLink",
     "DependencyCollection",
     "PipelineLink",
     "TaipanError",
