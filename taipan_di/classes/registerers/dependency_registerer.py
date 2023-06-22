@@ -12,6 +12,12 @@ T = TypeVar("T")
 
 
 class DependencyRegisterer(Generic[T]):
+    """
+    Part of the registration process.
+
+    You shouldn't have to create instances of this class by yourself.
+    """
+
     def __init__(
         self, type_to_register: Type[T], container: BaseDependencyContainer
     ) -> None:
@@ -19,9 +25,17 @@ class DependencyRegisterer(Generic[T]):
         self._container = container
 
     def as_singleton(self) -> SingletonRegisterer[T]:
+        """
+        Continue the registration process of the service as a singleton.
+        """
+
         registerer = SingletonRegisterer[T](self._type_to_register, self._container)
         return registerer
 
     def as_factory(self) -> FactoryRegisterer[T]:
+        """
+        Continue the registration process of the service as a factory.
+        """
+
         registerer = FactoryRegisterer[T](self._type_to_register, self._container)
         return registerer

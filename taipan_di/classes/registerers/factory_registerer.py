@@ -11,6 +11,12 @@ T = TypeVar("T")
 
 
 class FactoryRegisterer(Generic[T]):
+    """
+    Part of the registration process.
+
+    You shouldn't have to create instances of this class by yourself.
+    """
+
     def __init__(
         self, type_to_register: Type[T], container: BaseDependencyContainer
     ) -> None:
@@ -18,15 +24,31 @@ class FactoryRegisterer(Generic[T]):
         self._container = container
 
     def with_implementation(self, implementation_type: Type[T]) -> None:
+        """
+        Register the service as a factory with `implementation_type` as its implementation.
+
+        Resolving the service will return an instance of `implementation_type`.
+        """
+
         creator = lambda provider: instanciate_service.instanciate_service(
             implementation_type, provider
         )
         self._register(creator)
 
     def with_creator(self, creator: Callable[[BaseDependencyProvider], T]) -> None:
+        """
+        Register the service as a factory with the specified creator.
+        """
+
         self._register(creator)
 
     def with_self(self) -> None:
+        """
+        Register the service as a factory with itself as its implementation.
+
+        Resolving the service will return an instance of itself.
+        """
+
         creator = lambda provider: instanciate_service.instanciate_service(
             self._type_to_register, provider
         )

@@ -7,6 +7,11 @@ T = TypeVar("T")
 
 
 class BaseDependencyProvider(Protocol):
+    """
+    The `BaseDependencyProvider` contains the services that were registered and allows for
+    their resolution via the `resolve` method.
+    """
+
     @abc.abstractmethod
     def contains(self, type: Type[Any]) -> bool:
         """
@@ -21,6 +26,6 @@ class BaseDependencyProvider(Protocol):
         It it isn't, a TaipanUnregisteredError is raised.
 
         Warning : Depending on how the services were registered, the instance provided might
-        not be of the requested type.
+        not be of the requested type. This would not happen if type hinting is respected.
         """
         raise NotImplementedError

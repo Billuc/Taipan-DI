@@ -16,7 +16,7 @@ from typing import (
 from typing_extensions import Protocol
 
 from taipan_di.interfaces import BaseDependencyProvider
-from taipan_di.errors import TaipanInjectionError, TaipanTypeError
+from taipan_di.errors import TaipanInjectionError, TaipanResolutionError
 
 __all__ = ["instanciate_service"]
 
@@ -104,7 +104,7 @@ def instanciate_service(service: Type[S], provider: BaseDependencyProvider) -> S
 
     # ignore abstract class initialiser and protocol initialisers
     if constructor in [ABC.__init__, _no_init] or constructor.__name__ == "_no_init":
-        raise TaipanTypeError(
+        raise TaipanResolutionError(
             f"{str(service)} has no __init__, cannot instanciate the service"
         )
 

@@ -1,4 +1,4 @@
-from taipan_di import DependencyCollection, TaipanTypeError
+from taipan_di import DependencyCollection, TaipanResolutionError
 from mocks import *
 
 
@@ -45,7 +45,7 @@ def test_resolve_singleton_fails_if_no_init():
     try:
         instance = provider.resolve(MockInterface)
         assert False
-    except TaipanTypeError:
+    except TaipanResolutionError:
         assert True
     except:
         assert False

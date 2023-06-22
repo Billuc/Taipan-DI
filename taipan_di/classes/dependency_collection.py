@@ -13,6 +13,14 @@ U = TypeVar("U")
 
 
 class DependencyCollection:
+    """
+    The `DependencyCollection` allows you to register your services.
+
+    It exposes 2 methods to initiate registration processes : `register` and `register_pipeline`.
+
+    To resolve your services, you have to first `build` a `BaseDependencyProvider`.
+    """
+
     def __init__(self) -> None:
         self._container = DependencyContainer()
 

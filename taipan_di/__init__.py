@@ -2,7 +2,7 @@ from .errors import (
     TaipanError,
     TaipanInjectionError,
     TaipanRegistrationError,
-    TaipanTypeError,
+    TaipanResolutionError,
     TaipanUnregisteredError,
 )
 from .interfaces import BaseDependencyProvider
@@ -26,6 +26,6 @@ __all__ = [
     "TaipanError",
     "TaipanInjectionError",
     "TaipanRegistrationError",
-    "TaipanTypeError",
+    "TaipanResolutionError",
     "TaipanUnregisteredError",
 ]

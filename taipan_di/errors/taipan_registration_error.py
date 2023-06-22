@@ -4,4 +4,8 @@ __all__ = ["TaipanRegistrationError"]
 
 
 class TaipanRegistrationError(TaipanError):
+    """
+    Exception indicating an error occurred during the registration process.
+    """
+
     pass

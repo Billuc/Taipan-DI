@@ -1,5 +1,5 @@
 import abc
-from typing import Type, TypeVar, Protocol
+from typing import TypeVar, Protocol
 
 from .base_dependency_provider import BaseDependencyProvider
 

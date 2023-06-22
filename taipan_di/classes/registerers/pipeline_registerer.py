@@ -14,6 +14,12 @@ U = TypeVar("U")
 
 
 class PipelineRegisterer(Generic[T, U]):
+    """
+    Part of the registration process.
+
+    You shouldn't have to create instances of this class by yourself.
+    """
+
     def __init__(
         self,
         type_to_register: Type[PipelineLink[T, U]],
@@ -24,13 +30,31 @@ class PipelineRegisterer(Generic[T, U]):
         self._link_types: List[Type[PipelineLink[T, U]]] = []
 
     def add(self, link: Type[PipelineLink[T, U]]) -> PipelineRegisterer[T, U]:
+        """
+        Add a link to the pipeline you are building.
+
+        Returns itself, so that you can chain `add` calls.
+        """
+
         self._link_types.append(link)
         return self
 
     def as_singleton(self) -> None:
+        """
+        Register the pipeline built as a singleton.
+
+        Will throw an error if the pipeline is empty.
+        """
+
         self._register(True)
 
     def as_factory(self) -> None:
+        """
+        Register the pipeline built as a factory.
+
+        Will throw an error if the pipeline is empty.
+        """
+
         self._register(False)
 
     def _register(self, as_singleton: bool) -> None:

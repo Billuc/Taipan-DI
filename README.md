@@ -21,7 +21,6 @@ Taipan-DI is a [Dependency Injection](https://en.wikipedia.org/wiki/Dependency_i
 
  - Based purely on types (not on strings)
  - No automatic registration
- - It is necessary to write an `__init__` function or use `@dataclass`
 
 
 ## Installation
@@ -41,32 +40,45 @@ Taipan-DI is a [Dependency Injection](https://en.wikipedia.org/wiki/Dependency_i
 
 First, you have to create a `DependencyCollection` in which you will register your services. Each `DependencyCollection` is independant and contain different services.
 
-> `services = DependencyCollection()`
+```python
+services = DependencyCollection()
+```
 
-Then, register your services as you wish. They can be registered as factories or singletons using the following methods :
+Then, register your services as you wish. You can initiate registrations processes via 2 ways :
 
- - `services.register_factory(InterfaceType, ImplementationType)`
- - `services.register_singleton(InterfaceType, ImplementationType)`
+```python
+services.register(Type)
+services.register_pipeline(Type)
+```
 
-You can also provide a creator method or an instance (for singletons only) that will be used when resolving the services :
+For "standard" registration, you have to first choose the scope and then how you wish the instances to be created. Examples :
 
- - `services.register_factory_creator(Type, lambda provider: create(provider))`
- - `services.register_singleton_creator(Type, lambda provider: create(provider))`
- - `services.register_singleton_instance(Type, instance)`
+```python
+services.register(Type).as_factory().with_implementation(ChildType)
+services.register(Type).as_singleton().with_self()
+services.register(Type).as_singleton().with_instance(instance)
+services.register(Type).as_factory().with_creator(lambda provider: create(provider))
+```
 
-You can also register pipelines. Examples are given in the test files.
+For pipeline registration, all you have to do is add the links that constitute the pipeline and register it as a singleton or a factory. Example :
+
+```python
+services.register_pipeline(Type).add(Link1).add(Link2).as_factory()
+```
 
 Once your services are registered, you have to build a dependency provider which will be used to resolve services : 
 
-> `provider = services.build()`<br/>
-> `resolved = provider.resolve(InterfaceType)`
+```python
+provider = services.build()
+resolved = provider.resolve(Type)
+```
 
-If `ImplementationType` has a constructor dependency, it will be automatically resolved, as long as the dependency has been registered in the `DependencyCollection`.
+If `Type` has a constructor dependency, it will be automatically resolved, as long as the dependency has been registered in the `DependencyCollection`.
 
 
 ## Inspirations
 
-This library is partially based on the [*kink*](https://pypi.org/project/kink/) dependency injection library. I was using kink on another project previously but it didn't fit all my requirements.
+This library is partially based on the [*kink*](https://pypi.org/project/kink/) dependency injection library. I was using kink on another project previously but it didn't fit all my requirements and wishes.
 
 I also took inspiration from the [*injector*](https://pypi.org/project/injector/) library and .Net's dependency injection system.
 
@@ -78,6 +90,5 @@ If there is something you want to see added or if something does not work as you
 
 Here is a list of features I have in mind and will be working on :
 
- - Modify the registration process / methods to better handle type conditions and protocols
  - Create configuration from environment or configuration files
 

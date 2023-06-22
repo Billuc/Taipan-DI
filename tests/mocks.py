@@ -1,6 +1,6 @@
 from typing import Generic, Type, TypeVar
 
-from taipan_di import TaipanTypeError, BaseDependencyProvider
+from taipan_di import TaipanResolutionError, BaseDependencyProvider
 from taipan_di.interfaces import BaseScope
 
 T = TypeVar("T")
