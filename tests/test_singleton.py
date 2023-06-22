@@ -1,30 +1,32 @@
-from taipan_di import DependencyCollection, TaipanTypeError
+from taipan_di import ServiceCollection, TaipanResolutionError
 from mocks import *
 
 
 def test_register_singleton_succeeds():
-    services = DependencyCollection()
+    services = ServiceCollection()
 
     try:
-        services.register_singleton(MockInterface, MockClass)
+        services.register(MockInterface).as_singleton().with_implementation(MockClass)
         assert True
     except:
         assert False
 
 
 def test_register_singleton_with_wrong_class_works():
-    services = DependencyCollection()
-    services.register_singleton(MockInterface, MockWrongClass)
+    services = ServiceCollection()
+    # There should be an error here in the editor though
+    services.register(MockInterface).as_singleton().with_implementation(MockWrongClass)
 
     provider = services.build()
     instance = provider.resolve(MockInterface)
-    
+
     assert isinstance(instance, MockWrongClass)
     assert not isinstance(instance, MockInterface)
 
+
 def test_resolve_singleton():
-    services = DependencyCollection()
-    services.register_singleton(MockInterface, MockClass)
+    services = ServiceCollection()
+    services.register(MockInterface).as_singleton().with_implementation(MockClass)
 
     provider = services.build()
     instance = provider.resolve(MockInterface)
@@ -35,39 +37,48 @@ def test_resolve_singleton():
 
 
 def test_resolve_singleton_fails_if_no_init():
-    services = DependencyCollection()
-    services.register_singleton(MockInterface, MockClassNoInit)
+    services = ServiceCollection()
+    services.register(MockInterface).as_singleton().with_implementation(MockClassNoInit)
 
     provider = services.build()
 
     try:
         instance = provider.resolve(MockInterface)
         assert False
-    except TaipanTypeError:
+    except TaipanResolutionError:
         assert True
     except:
         assert False
 
 
 def test_contains_singleton():
-    services = DependencyCollection()
-    services.register_singleton(MockInterface, MockClass)
+    services = ServiceCollection()
+    services.register(MockInterface).as_singleton().with_implementation(MockClass)
 
     provider = services.build()
 
     assert provider.contains(MockInterface)
     assert not provider.contains(MockClass)
     assert not provider.contains(MockWrongInterface)
-    
-    
+
+
 def test_resolve_singleton_no_interface():
-    services = DependencyCollection()
-    services.register_singleton(MockClass)
-    
+    services = ServiceCollection()
+    services.register(MockClass).as_singleton().with_self()
+
     provider = services.build()
     instance = provider.resolve(MockClass)
-    
+
     assert provider.contains(MockClass)
     assert isinstance(instance, MockClass)
     assert instance is not None
     assert instance == provider.resolve(MockClass)
+
+
+def test_doesnt_contain_singleton_if_no_with():
+    services = ServiceCollection()
+    services.register(MockClass).as_singleton()
+
+    provider = services.build()
+
+    assert not provider.contains(MockClass)

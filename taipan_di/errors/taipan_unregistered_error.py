@@ -4,4 +4,8 @@ __all__ = ["TaipanUnregisteredError"]
 
 
 class TaipanUnregisteredError(TaipanError):
+    """
+    Exception indicating that you tried to resolved a service that wasn't registered
+    """
+
     pass

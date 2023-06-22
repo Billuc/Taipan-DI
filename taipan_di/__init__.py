@@ -2,19 +2,30 @@ from .errors import (
     TaipanError,
     TaipanInjectionError,
     TaipanRegistrationError,
-    TaipanTypeError,
+    TaipanResolutionError,
     TaipanUnregisteredError,
 )
-from .interfaces import BaseDependencyProvider
-from .classes import DependencyCollection, PipelineLink
+from .interfaces import BaseServiceProvider
+from .classes import (
+    ServiceCollection,
+    PipelineLink,
+    ServiceRegisterer,
+    FactoryRegisterer,
+    PipelineRegisterer,
+    SingletonRegisterer,
+)
 
 __all__ = [
-    "BaseDependencyProvider",
-    "DependencyCollection",
+    "BaseServiceProvider",
+    "ServiceCollection",
     "PipelineLink",
+    "ServiceRegisterer",
+    "FactoryRegisterer",
+    "PipelineRegisterer",
+    "SingletonRegisterer",
     "TaipanError",
     "TaipanInjectionError",
     "TaipanRegistrationError",
-    "TaipanTypeError",
+    "TaipanResolutionError",
     "TaipanUnregisteredError",
 ]

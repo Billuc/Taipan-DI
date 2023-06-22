@@ -1,31 +1,32 @@
-from taipan_di import DependencyCollection, TaipanTypeError
+from taipan_di import ServiceCollection, TaipanResolutionError
 from mocks import *
 
 
 def test_register_factory_succeeds():
-    services = DependencyCollection()
+    services = ServiceCollection()
 
     try:
-        services.register_factory(MockInterface, MockClass)
+        services.register(MockInterface).as_factory().with_implementation(MockClass)
         assert True
     except:
         assert False
 
 
 def test_register_factory_with_wrong_class_works():
-    services = DependencyCollection()
-    services.register_factory(MockInterface, MockWrongClass)
+    services = ServiceCollection()
+    # There should be an error here in the editor though
+    services.register(MockInterface).as_factory().with_implementation(MockWrongClass)
 
     provider = services.build()
     instance = provider.resolve(MockInterface)
-    
+
     assert isinstance(instance, MockWrongClass)
     assert not isinstance(instance, MockInterface)
 
 
 def test_resolve_factory():
-    services = DependencyCollection()
-    services.register_factory(MockInterface, MockClass)
+    services = ServiceCollection()
+    services.register(MockInterface).as_factory().with_implementation(MockClass)
 
     provider = services.build()
     instance = provider.resolve(MockInterface)
@@ -36,39 +37,48 @@ def test_resolve_factory():
 
 
 def test_resolve_factory_fails_if_no_init():
-    services = DependencyCollection()
-    services.register_factory(MockInterface, MockClassNoInit)
+    services = ServiceCollection()
+    services.register(MockInterface).as_factory().with_implementation(MockClassNoInit)
 
     provider = services.build()
 
     try:
         instance = provider.resolve(MockInterface)
         assert False
-    except TaipanTypeError:
+    except TaipanResolutionError:
         assert True
     except:
         assert False
 
 
 def test_contains_factory():
-    services = DependencyCollection()
-    services.register_factory(MockInterface, MockClass)
+    services = ServiceCollection()
+    services.register(MockInterface).as_factory().with_implementation(MockClass)
 
     provider = services.build()
 
     assert provider.contains(MockInterface)
     assert not provider.contains(MockClass)
     assert not provider.contains(MockWrongInterface)
-    
+
 
 def test_resolve_factory_no_interface():
-    services = DependencyCollection()
-    services.register_factory(MockClass)
-    
+    services = ServiceCollection()
+    services.register(MockClass).as_factory().with_self()
+
     provider = services.build()
     instance = provider.resolve(MockClass)
-    
+
     assert provider.contains(MockClass)
     assert isinstance(instance, MockClass)
     assert instance is not None
     assert instance != provider.resolve(MockClass)
+
+
+def test_doesnt_contain_factory_if_no_with():
+    services = ServiceCollection()
+    services.register(MockClass).as_factory()
+
+    provider = services.build()
+
+    assert not provider.contains(MockClass)

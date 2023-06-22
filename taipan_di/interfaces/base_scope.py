@@ -1,22 +1,14 @@
 import abc
-from typing import Type, TypeVar
+from typing import TypeVar, Protocol
 
-from .base_dependency_provider import BaseDependencyProvider
+from .base_service_provider import BaseServiceProvider
 
 __all__ = ["BaseScope"]
 
-T = TypeVar("T")
+T = TypeVar("T", covariant=True)
 
 
-class BaseScope(metaclass=abc.ABCMeta):
-    @classmethod
-    def __subclasshook__(cls, subclass):
-        return (
-            hasattr(subclass, "get_instance")
-            and callable(subclass.get_instance)
-            or NotImplemented
-        )
-
+class BaseScope(Protocol[T]):
     @abc.abstractmethod
-    def get_instance(self, type: Type[T], container: BaseDependencyProvider) -> T:
+    def get_instance(self, container: BaseServiceProvider) -> T:
         raise NotImplementedError()

@@ -1,12 +1,12 @@
 from typing import cast
-from taipan_di.classes.dependency_container import DependencyContainer
-from taipan_di.classes.dependency_provider import DependencyProvider
+from taipan_di.classes.service_container import ServiceContainer
+from taipan_di.classes.service_provider import ServiceProvider
 from taipan_di.errors.taipan_unregistered_error import TaipanUnregisteredError
 from mocks import *
 
 
 def test_init_container():
-    container = DependencyContainer()
+    container = ServiceContainer()
 
     assert len(container._services) == 0
     assert not container.contains(MockInterface)
@@ -14,7 +14,7 @@ def test_init_container():
 
 
 def test_register():
-    container = DependencyContainer()
+    container = ServiceContainer()
     service = MockScope()
 
     container.register(MockClass, service)
@@ -23,7 +23,7 @@ def test_register():
 
 
 def test_contains():
-    container = DependencyContainer()
+    container = ServiceContainer()
     service = MockScope()
 
     container.register(MockClass, service)
@@ -34,10 +34,10 @@ def test_contains():
 
 
 def test_provider_has_same_services():
-    container = DependencyContainer()
+    container = ServiceContainer()
     service = MockScope()
 
     container.register(MockClass, service)
-    provider = cast(DependencyProvider, container.build())
+    provider = cast(ServiceProvider, container.build())
 
     assert provider._services == container._services
