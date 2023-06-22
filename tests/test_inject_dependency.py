@@ -5,8 +5,8 @@ def test_inject_dependency():
     services = DependencyCollection()
     inner = MockInner()
     
-    services.register_singleton_instance(MockInner, inner)
-    services.register_factory(MockOuter, MockOuter)
+    services.register(MockInner).as_singleton().with_instance(inner)
+    services.register(MockOuter).as_factory().with_self()
     
     provider = services.build()
     outer_1 = provider.resolve(MockOuter)

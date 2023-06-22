@@ -4,9 +4,9 @@ from mocks import *
 
 def test_resolve():
     container = DependencyContainer()
-    service = MockScope()
+    scope = MockScope()
 
-    container.register(MockClass, service)
+    container.register(MockClass, scope)
     provider = container.build()
     
     instance = provider.resolve(MockClass)
@@ -14,7 +14,7 @@ def test_resolve():
     assert instance is not None
     assert isinstance(instance, MockClass)
 
-def test_resolve_fails():
+def test_resolve_fails_if_not_registered():
     container = DependencyContainer()
     provider = container.build()
 

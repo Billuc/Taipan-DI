@@ -40,7 +40,7 @@ def test_register_pipeline():
         .add(NameProvider)\
         .add(SalutationAdder)\
         .add(SuffixAdder)\
-        .register()
+        .as_factory()
 
     provider = services.build()
     assert provider.contains(BaseGreetingProvider)
@@ -63,7 +63,7 @@ def test_resolve_pipeline():
         .add(NameProvider)\
         .add(SalutationAdder)\
         .add(SuffixAdder)\
-        .register()
+        .as_factory()
 
     provider = services.build()
     instance = provider.resolve(BaseGreetingProvider)
@@ -74,11 +74,11 @@ def test_resolve_pipeline():
     
 def test_resolve_pipeline_as_singleton():
     services = DependencyCollection()
-    services.register_pipeline(BaseGreetingProvider, True)\
+    services.register_pipeline(BaseGreetingProvider)\
         .add(NameProvider)\
         .add(SalutationAdder)\
         .add(SuffixAdder)\
-        .register()
+        .as_singleton()
 
     provider = services.build()
     instance = provider.resolve(BaseGreetingProvider)
@@ -93,7 +93,7 @@ def test_pipeline_exec():
         .add(NameProvider)\
         .add(SalutationAdder)\
         .add(SuffixAdder)\
-        .register()
+        .as_factory()
 
     provider = services.build()
     instance = provider.resolve(BaseGreetingProvider)
@@ -107,7 +107,7 @@ def test_exit_link():
     services.register_pipeline(BaseGreetingProvider)\
         .add(AdminDetector)\
         .add(NameProvider)\
-        .register()
+        .as_factory()
         
     provider = services.build()
     instance = provider.resolve(BaseGreetingProvider)
