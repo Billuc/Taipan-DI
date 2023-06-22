@@ -3,7 +3,7 @@ from typing import Callable, Type, Generic, TypeVar
 from taipan_di.classes.scopes import FactoryScope
 from taipan_di.classes.tools import instanciate_service
 
-from taipan_di.interfaces import BaseDependencyProvider, BaseDependencyContainer
+from taipan_di.interfaces import BaseServiceProvider, BaseServiceContainer
 
 __all__ = ["FactoryRegisterer"]
 
@@ -18,7 +18,7 @@ class FactoryRegisterer(Generic[T]):
     """
 
     def __init__(
-        self, type_to_register: Type[T], container: BaseDependencyContainer
+        self, type_to_register: Type[T], container: BaseServiceContainer
     ) -> None:
         self._type_to_register = type_to_register
         self._container = container
@@ -35,7 +35,7 @@ class FactoryRegisterer(Generic[T]):
         )
         self._register(creator)
 
-    def with_creator(self, creator: Callable[[BaseDependencyProvider], T]) -> None:
+    def with_creator(self, creator: Callable[[BaseServiceProvider], T]) -> None:
         """
         Register the service as a factory with the specified creator.
         """
@@ -54,6 +54,6 @@ class FactoryRegisterer(Generic[T]):
         )
         self._register(creator)
 
-    def _register(self, creator: Callable[[BaseDependencyProvider], T]) -> None:
+    def _register(self, creator: Callable[[BaseServiceProvider], T]) -> None:
         scope = FactoryScope[T](creator)
         self._container.register(self._type_to_register, scope)

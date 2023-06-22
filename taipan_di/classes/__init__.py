@@ -1,16 +1,16 @@
 from .tools import PipelineLink
-from .dependency_collection import DependencyCollection
+from .service_collection import ServiceCollection
 from .registerers import (
-    DependencyRegisterer,
+    ServiceRegisterer,
     FactoryRegisterer,
     PipelineRegisterer,
     SingletonRegisterer,
 )
 
 __all__ = [
-    "DependencyCollection",
+    "ServiceCollection",
     "PipelineLink",
-    "DependencyRegisterer",
+    "ServiceRegisterer",
     "FactoryRegisterer",
     "PipelineRegisterer",
     "SingletonRegisterer",

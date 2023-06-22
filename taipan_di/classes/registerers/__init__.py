@@ -1,10 +1,10 @@
-from .dependency_registerer import DependencyRegisterer
+from .service_registerer import ServiceRegisterer
 from .pipeline_registerer import PipelineRegisterer
 from .singleton_registerer import SingletonRegisterer
 from .factory_registerer import FactoryRegisterer
 
 __all__ = [
-    "DependencyRegisterer",
+    "ServiceRegisterer",
     "PipelineRegisterer",
     "SingletonRegisterer",
     "FactoryRegisterer",

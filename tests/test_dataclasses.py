@@ -1,10 +1,10 @@
 from dataclasses import dataclass
 
-from taipan_di.classes import DependencyCollection
+from taipan_di.classes import ServiceCollection
 
 
 def test_register_with_dataclasses():
-    services = DependencyCollection()
+    services = ServiceCollection()
     inner = MockInner("John Doe")
     
     services.register(MockInner).as_singleton().with_instance(inner)

@@ -1,9 +1,9 @@
-from taipan_di import DependencyCollection, TaipanResolutionError
+from taipan_di import ServiceCollection, TaipanResolutionError
 from mocks import *
 
 
 def test_register_singleton_succeeds():
-    services = DependencyCollection()
+    services = ServiceCollection()
 
     try:
         services.register(MockInterface).as_singleton().with_implementation(MockClass)
@@ -13,7 +13,7 @@ def test_register_singleton_succeeds():
 
 
 def test_register_singleton_with_wrong_class_works():
-    services = DependencyCollection()
+    services = ServiceCollection()
     # There should be an error here in the editor though
     services.register(MockInterface).as_singleton().with_implementation(MockWrongClass)
 
@@ -25,7 +25,7 @@ def test_register_singleton_with_wrong_class_works():
 
 
 def test_resolve_singleton():
-    services = DependencyCollection()
+    services = ServiceCollection()
     services.register(MockInterface).as_singleton().with_implementation(MockClass)
 
     provider = services.build()
@@ -37,7 +37,7 @@ def test_resolve_singleton():
 
 
 def test_resolve_singleton_fails_if_no_init():
-    services = DependencyCollection()
+    services = ServiceCollection()
     services.register(MockInterface).as_singleton().with_implementation(MockClassNoInit)
 
     provider = services.build()
@@ -52,7 +52,7 @@ def test_resolve_singleton_fails_if_no_init():
 
 
 def test_contains_singleton():
-    services = DependencyCollection()
+    services = ServiceCollection()
     services.register(MockInterface).as_singleton().with_implementation(MockClass)
 
     provider = services.build()
@@ -63,7 +63,7 @@ def test_contains_singleton():
 
 
 def test_resolve_singleton_no_interface():
-    services = DependencyCollection()
+    services = ServiceCollection()
     services.register(MockClass).as_singleton().with_self()
 
     provider = services.build()
@@ -76,7 +76,7 @@ def test_resolve_singleton_no_interface():
 
 
 def test_doesnt_contain_singleton_if_no_with():
-    services = DependencyCollection()
+    services = ServiceCollection()
     services.register(MockClass).as_singleton()
 
     provider = services.build()

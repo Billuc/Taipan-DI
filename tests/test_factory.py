@@ -1,9 +1,9 @@
-from taipan_di import DependencyCollection, TaipanResolutionError
+from taipan_di import ServiceCollection, TaipanResolutionError
 from mocks import *
 
 
 def test_register_factory_succeeds():
-    services = DependencyCollection()
+    services = ServiceCollection()
 
     try:
         services.register(MockInterface).as_factory().with_implementation(MockClass)
@@ -13,7 +13,7 @@ def test_register_factory_succeeds():
 
 
 def test_register_factory_with_wrong_class_works():
-    services = DependencyCollection()
+    services = ServiceCollection()
     # There should be an error here in the editor though
     services.register(MockInterface).as_factory().with_implementation(MockWrongClass)
 
@@ -25,7 +25,7 @@ def test_register_factory_with_wrong_class_works():
 
 
 def test_resolve_factory():
-    services = DependencyCollection()
+    services = ServiceCollection()
     services.register(MockInterface).as_factory().with_implementation(MockClass)
 
     provider = services.build()
@@ -37,7 +37,7 @@ def test_resolve_factory():
 
 
 def test_resolve_factory_fails_if_no_init():
-    services = DependencyCollection()
+    services = ServiceCollection()
     services.register(MockInterface).as_factory().with_implementation(MockClassNoInit)
 
     provider = services.build()
@@ -52,7 +52,7 @@ def test_resolve_factory_fails_if_no_init():
 
 
 def test_contains_factory():
-    services = DependencyCollection()
+    services = ServiceCollection()
     services.register(MockInterface).as_factory().with_implementation(MockClass)
 
     provider = services.build()
@@ -63,7 +63,7 @@ def test_contains_factory():
 
 
 def test_resolve_factory_no_interface():
-    services = DependencyCollection()
+    services = ServiceCollection()
     services.register(MockClass).as_factory().with_self()
 
     provider = services.build()
@@ -76,7 +76,7 @@ def test_resolve_factory_no_interface():
 
 
 def test_doesnt_contain_factory_if_no_with():
-    services = DependencyCollection()
+    services = ServiceCollection()
     services.register(MockClass).as_factory()
 
     provider = services.build()

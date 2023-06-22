@@ -2,7 +2,7 @@ from __future__ import annotations
 from typing import Generic, List, Type, TypeVar
 
 from taipan_di.errors import TaipanRegistrationError
-from taipan_di.interfaces import BaseDependencyProvider, BaseDependencyContainer
+from taipan_di.interfaces import BaseServiceProvider, BaseServiceContainer
 
 from taipan_di.classes.scopes import FactoryScope, SingletonScope
 from taipan_di.classes.tools import PipelineLink, PipelineFactory, instanciate_service
@@ -23,7 +23,7 @@ class PipelineRegisterer(Generic[T, U]):
     def __init__(
         self,
         type_to_register: Type[PipelineLink[T, U]],
-        container: BaseDependencyContainer,
+        container: BaseServiceContainer,
     ) -> None:
         self._type_to_register = type_to_register
         self._container = container
@@ -63,7 +63,7 @@ class PipelineRegisterer(Generic[T, U]):
                 f"Pipeline[{str(T)}, {str(U)}] is empty ! Add at least one link"
             )
 
-        def create_pipeline(provider: BaseDependencyProvider) -> PipelineLink[T, U]:
+        def create_pipeline(provider: BaseServiceProvider) -> PipelineLink[T, U]:
             factory = PipelineFactory[T, U]()
 
             for link_type in self._link_types:

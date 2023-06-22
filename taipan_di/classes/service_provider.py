@@ -3,12 +3,12 @@ from typing import Any, Dict, Type, TypeVar
 from taipan_di.errors import TaipanUnregisteredError
 from taipan_di.interfaces import BaseScope
 
-__all__ = ["DependencyProvider"]
+__all__ = ["ServiceProvider"]
 
 T = TypeVar("T")
 
 
-class DependencyProvider:
+class ServiceProvider:
     def __init__(self, services: Dict[Type[Any], BaseScope]) -> None:
         self._services = services.copy()
 

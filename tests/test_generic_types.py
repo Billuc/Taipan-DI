@@ -1,9 +1,9 @@
 from typing import Generic, List, TypeVar
-from taipan_di import DependencyCollection
+from taipan_di import ServiceCollection
 
 
 def test_resolve_generic_types():
-    services = DependencyCollection()
+    services = ServiceCollection()
     services.register(List[str]).as_factory().with_creator(
         lambda provider: ["foo", "bar", "baz"]
     )
@@ -15,7 +15,7 @@ def test_resolve_generic_types():
 def test_resolve_generic_with_alias():
     MyList = List[str]
 
-    services = DependencyCollection()
+    services = ServiceCollection()
     services.register(MyList).as_factory().with_creator(
         lambda provider: ["foo", "bar", "baz"]
     )
@@ -27,7 +27,7 @@ def test_resolve_generic_with_alias():
 def test_resolve_generic_registered_with_alias():
     MyList = List[str]
 
-    services = DependencyCollection()
+    services = ServiceCollection()
     services.register(MyList).as_factory().with_creator(
         lambda provider: ["foo", "bar", "baz"]
     )
@@ -37,7 +37,7 @@ def test_resolve_generic_registered_with_alias():
 
 
 def test_resolve_custom_generics():
-    services = DependencyCollection()
+    services = ServiceCollection()
     services.register(MyGenericInterface).as_factory().with_implementation(
         MyGenericImplementation
     )
@@ -47,7 +47,7 @@ def test_resolve_custom_generics():
 
 
 def test_resolve_custom_generics_with_type():
-    services = DependencyCollection()
+    services = ServiceCollection()
     services.register(MyGenericInterface[str]).as_factory().with_implementation(
         MyGenericImplementation
     )

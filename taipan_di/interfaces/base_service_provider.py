@@ -1,14 +1,14 @@
 import abc
 from typing import Any, Type, TypeVar, Protocol
 
-__all__ = ["BaseDependencyProvider"]
+__all__ = ["BaseServiceProvider"]
 
 T = TypeVar("T")
 
 
-class BaseDependencyProvider(Protocol):
+class BaseServiceProvider(Protocol):
     """
-    The `BaseDependencyProvider` contains the services that were registered and allows for
+    The `BaseServiceProvider` contains the services that were registered and allows for
     their resolution via the `resolve` method.
     """
 

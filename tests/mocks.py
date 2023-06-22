@@ -1,6 +1,6 @@
 from typing import Generic, Type, TypeVar
 
-from taipan_di import TaipanResolutionError, BaseDependencyProvider
+from taipan_di import TaipanResolutionError, BaseServiceProvider
 from taipan_di.interfaces import BaseScope
 
 T = TypeVar("T")
@@ -29,5 +29,5 @@ class MockWrongClass(MockWrongInterface):
 
 
 class MockScope:
-    def get_instance(self, container: BaseDependencyProvider) -> MockClass:
+    def get_instance(self, container: BaseServiceProvider) -> MockClass:
         return MockClass()

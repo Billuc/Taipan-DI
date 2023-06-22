@@ -1,15 +1,15 @@
 import abc
 from typing import Any, Type, Protocol, TypeVar
 
-from .base_dependency_provider import BaseDependencyProvider
+from .base_service_provider import BaseServiceProvider
 from .base_scope import BaseScope
 
-__all__ = ["BaseDependencyContainer"]
+__all__ = ["BaseServiceContainer"]
 
 T = TypeVar("T")
 
 
-class BaseDependencyContainer(Protocol):
+class BaseServiceContainer(Protocol):
     @abc.abstractmethod
     def contains(self, type: Type[Any]) -> bool:
         raise NotImplementedError
@@ -19,5 +19,5 @@ class BaseDependencyContainer(Protocol):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def build(self) -> BaseDependencyProvider:
+    def build(self) -> BaseServiceProvider:
         raise NotImplementedError

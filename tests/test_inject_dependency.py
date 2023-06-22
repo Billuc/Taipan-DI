@@ -1,8 +1,8 @@
-from taipan_di.classes.dependency_collection import DependencyCollection
+from taipan_di.classes.service_collection import ServiceCollection
 
 
 def test_inject_dependency():
-    services = DependencyCollection()
+    services = ServiceCollection()
     inner = MockInner()
     
     services.register(MockInner).as_singleton().with_instance(inner)

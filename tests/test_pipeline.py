@@ -1,5 +1,5 @@
 from typing import Callable
-from taipan_di import DependencyCollection, PipelineLink
+from taipan_di import ServiceCollection, PipelineLink
 
 BaseGreetingProvider = PipelineLink[str, str]
 
@@ -35,7 +35,7 @@ class AdminDetector(BaseGreetingProvider):
 
 
 def test_register_pipeline():
-    services = DependencyCollection()
+    services = ServiceCollection()
     services.register_pipeline(BaseGreetingProvider)\
         .add(NameProvider)\
         .add(SalutationAdder)\
@@ -47,7 +47,7 @@ def test_register_pipeline():
 
 
 def test_not_contained_if_not_registered():
-    services = DependencyCollection()
+    services = ServiceCollection()
     services.register_pipeline(BaseGreetingProvider)\
         .add(NameProvider)\
         .add(SalutationAdder)\
@@ -58,7 +58,7 @@ def test_not_contained_if_not_registered():
     
     
 def test_resolve_pipeline():
-    services = DependencyCollection()
+    services = ServiceCollection()
     services.register_pipeline(BaseGreetingProvider)\
         .add(NameProvider)\
         .add(SalutationAdder)\
@@ -73,7 +73,7 @@ def test_resolve_pipeline():
     
     
 def test_resolve_pipeline_as_singleton():
-    services = DependencyCollection()
+    services = ServiceCollection()
     services.register_pipeline(BaseGreetingProvider)\
         .add(NameProvider)\
         .add(SalutationAdder)\
@@ -88,7 +88,7 @@ def test_resolve_pipeline_as_singleton():
     
     
 def test_pipeline_exec():
-    services = DependencyCollection()
+    services = ServiceCollection()
     services.register_pipeline(BaseGreetingProvider)\
         .add(NameProvider)\
         .add(SalutationAdder)\
@@ -103,7 +103,7 @@ def test_pipeline_exec():
     
     
 def test_exit_link():
-    services = DependencyCollection()
+    services = ServiceCollection()
     services.register_pipeline(BaseGreetingProvider)\
         .add(AdminDetector)\
         .add(NameProvider)\

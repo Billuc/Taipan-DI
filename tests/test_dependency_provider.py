@@ -1,9 +1,9 @@
-from taipan_di.classes.dependency_container import DependencyContainer
+from taipan_di.classes.service_container import ServiceContainer
 from taipan_di import TaipanUnregisteredError
 from mocks import *
 
 def test_resolve():
-    container = DependencyContainer()
+    container = ServiceContainer()
     scope = MockScope()
 
     container.register(MockClass, scope)
@@ -15,7 +15,7 @@ def test_resolve():
     assert isinstance(instance, MockClass)
 
 def test_resolve_fails_if_not_registered():
-    container = DependencyContainer()
+    container = ServiceContainer()
     provider = container.build()
 
     try:

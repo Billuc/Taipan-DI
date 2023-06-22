@@ -5,21 +5,21 @@ from .errors import (
     TaipanResolutionError,
     TaipanUnregisteredError,
 )
-from .interfaces import BaseDependencyProvider
+from .interfaces import BaseServiceProvider
 from .classes import (
-    DependencyCollection,
+    ServiceCollection,
     PipelineLink,
-    DependencyRegisterer,
+    ServiceRegisterer,
     FactoryRegisterer,
     PipelineRegisterer,
     SingletonRegisterer,
 )
 
 __all__ = [
-    "BaseDependencyProvider",
-    "DependencyCollection",
+    "BaseServiceProvider",
+    "ServiceCollection",
     "PipelineLink",
-    "DependencyRegisterer",
+    "ServiceRegisterer",
     "FactoryRegisterer",
     "PipelineRegisterer",
     "SingletonRegisterer",

@@ -1,17 +1,17 @@
 from typing import Type, TypeVar, Generic
 
-from taipan_di.interfaces import BaseDependencyContainer
+from taipan_di.interfaces import BaseServiceContainer
 
 from .singleton_registerer import SingletonRegisterer
 from .factory_registerer import FactoryRegisterer
 
-__all__ = ["DependencyRegisterer"]
+__all__ = ["ServiceRegisterer"]
 
 
 T = TypeVar("T")
 
 
-class DependencyRegisterer(Generic[T]):
+class ServiceRegisterer(Generic[T]):
     """
     Part of the registration process.
 
@@ -19,7 +19,7 @@ class DependencyRegisterer(Generic[T]):
     """
 
     def __init__(
-        self, type_to_register: Type[T], container: BaseDependencyContainer
+        self, type_to_register: Type[T], container: BaseServiceContainer
     ) -> None:
         self._type_to_register = type_to_register
         self._container = container

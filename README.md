@@ -38,10 +38,10 @@ Taipan-DI is a [Dependency Injection](https://en.wikipedia.org/wiki/Dependency_i
 
 ## Usage
 
-First, you have to create a `DependencyCollection` in which you will register your services. Each `DependencyCollection` is independant and contain different services.
+First, you have to create a `ServiceCollection` in which you will register your services. Each `ServiceCollection` is independant and contain different services.
 
 ```python
-services = DependencyCollection()
+services = ServiceCollection()
 ```
 
 Then, register your services as you wish. You can initiate registrations processes via 2 ways :
@@ -66,14 +66,14 @@ For pipeline registration, all you have to do is add the links that constitute t
 services.register_pipeline(Type).add(Link1).add(Link2).as_factory()
 ```
 
-Once your services are registered, you have to build a dependency provider which will be used to resolve services : 
+Once your services are registered, you have to build a service provider which will be used to resolve services : 
 
 ```python
 provider = services.build()
 resolved = provider.resolve(Type)
 ```
 
-If `Type` has a constructor dependency, it will be automatically resolved, as long as the dependency has been registered in the `DependencyCollection`.
+If `Type` has a constructor dependency, it will be automatically resolved, as long as the dependency has been registered in the `ServiceCollection`.
 
 
 ## Inspirations
