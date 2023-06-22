@@ -1,3 +1,4 @@
+from __future__ import annotations
 from typing import Generic, List, TypeVar
 
 from taipan_di.classes.tools import PipelineLink
@@ -13,7 +14,7 @@ class PipelineFactory(Generic[T, U]):
     def __init__(self) -> None:
         self._links: List[PipelineLink[T, U]] = []
 
-    def add(self, link: PipelineLink[T, U]) -> "PipelineFactory[T, U]":
+    def add(self, link: PipelineLink[T, U]) -> PipelineFactory[T, U]:
         self._links.append(link)
         return self
 

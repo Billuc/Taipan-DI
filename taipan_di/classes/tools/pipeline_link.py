@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import abc
 from typing import Callable, Generic, Optional, TypeVar
 
@@ -11,7 +13,7 @@ class PipelineLink(Generic[T, U], metaclass=abc.ABCMeta):
     def __init__(self) -> None:
         self._next = None
 
-    def _set_next(self, next: "PipelineLink[T, U]") -> "PipelineLink[T, U]":
+    def _set_next(self, next: PipelineLink[T, U]) -> PipelineLink[T, U]:
         self._next = next
         return self._next
 

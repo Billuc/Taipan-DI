@@ -1,11 +1,10 @@
-from typing import Callable, Optional, Type, TypeVar
+from typing import Type, TypeVar
 
 from taipan_di.interfaces import BaseDependencyProvider
 
 from .dependency_container import DependencyContainer
-from .instanciate_service import instanciate_service
-from .scopes import FactoryScope, SingletonScope
-from .tools import PipelineLink, PipelineRegistrator
+from .tools import PipelineLink
+from .registerers import DependencyRegisterer, PipelineRegisterer
 
 __all__ = ["DependencyCollection"]
 
@@ -17,84 +16,28 @@ class DependencyCollection:
     def __init__(self) -> None:
         self._container = DependencyContainer()
 
-    # Public methods
+    ## Standard register
 
-    ## Singleton
-
-    def register_singleton_creator(
-        self, type: Type[T], creator: Callable[[BaseDependencyProvider], T]
-    ) -> None:
+    def register(self, type_to_register: Type[T]) -> DependencyRegisterer[T]:
         """
-        Registers a service as a singleton by specifying how to create its instance.
+        Initiate the registration of a service.
+
+        Returns a registerer to register the service as wanted.
         """
-        service = SingletonScope(creator)
-        self._container.register(type, service)
-
-    def register_singleton_instance(self, type: Type[T], instance: T) -> None:
-        """
-        Registers a service as a singleton by providing the instance to return.
-        """
-        creator = lambda provider: instance
-        self.register_singleton_creator(type, creator)
-
-    def register_singleton(
-        self, interface_type: Type[T], implementation_type: Optional[Type[T]] = None
-    ) -> None:
-        """
-        Register a service as a singleton by specifying the implementation type to use.
-
-        On resolve, the implementation will be instanciated with its dependencies automatically resolved.
-
-        If the implementation type isn't provided, the interface type will be used as the implementation type.
-
-        If the implementation type don't possess an __init__ method, the resolve will fail.
-        """
-        if implementation_type is None:
-            implementation_type = interface_type
-
-        creator = lambda provider: instanciate_service(implementation_type, provider)
-        self.register_singleton_creator(interface_type, creator)
-
-    ## Factory
-
-    def register_factory_creator(
-        self, type: Type[T], creator: Callable[[BaseDependencyProvider], T]
-    ) -> None:
-        """
-        Registers a service as a factory by specifying how to create its instances.
-        """
-        service = FactoryScope(creator)
-        self._container.register(type, service)
-
-    def register_factory(
-        self, interface_type: Type[T], implementation_type: Optional[Type[T]] = None
-    ) -> None:
-        """
-        Register a service as a factory by specifying the implementation type to use.
-
-        On resolve, the implementation will be instanciated with its dependencies automatically resolved.
-
-        If the implementation type isn't provided, the interface type will be used as the implementation type.
-
-        If the implementation type don't possess an __init__ method, the resolve will fail.
-        """
-        if implementation_type is None:
-            implementation_type = interface_type
-
-        creator = lambda provider: instanciate_service(implementation_type, provider)
-        self.register_factory_creator(interface_type, creator)
+        registerer = DependencyRegisterer[T](type_to_register, self._container)
+        return registerer
 
     ## Pipeline
 
     def register_pipeline(
-        self, interface_type: Type[PipelineLink[T, U]], as_singleton=False
-    ) -> PipelineRegistrator[T, U]:
+        self, interface_type: Type[PipelineLink[T, U]]
+    ) -> PipelineRegisterer[T, U]:
         """
         Initiate the registration of a service as a pipeline.
 
-        Returns a registrator to be used to add the links and then register the service.
+        Returns a registerer to be used to add the links and then register the service.
         """
-        registrator = PipelineRegistrator[T, U](interface_type, self, as_singleton)
+        registrator = PipelineRegisterer[T, U](interface_type, self._container)
         return registrator
 
     ## Build

@@ -1,9 +1,9 @@
 from .pipeline_link import PipelineLink
 from .pipeline_factory import PipelineFactory
-from .pipeline_registrator import PipelineRegistrator
+from . import instanciate_service
 
 __all__ = [
     "PipelineLink",
     "PipelineFactory",
-    "PipelineRegistrator",
+    "instanciate_service",
 ]

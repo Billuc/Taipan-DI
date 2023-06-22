@@ -1,17 +1,16 @@
-from typing import Any, Callable, Type, TypeVar, cast
+from typing import Callable, Generic, TypeVar
 
-from taipan_di.interfaces import BaseDependencyProvider, BaseScope
+from taipan_di.interfaces import BaseDependencyProvider
 
 __all__ = ["FactoryScope"]
 
 T = TypeVar("T")
 
 
-class FactoryScope(BaseScope):
-    def __init__(self, creator: Callable[[BaseDependencyProvider], Any]) -> None:
+class FactoryScope(Generic[T]):
+    def __init__(self, creator: Callable[[BaseDependencyProvider], T]) -> None:
         self._creator = creator
 
-    def get_instance(self, type: Type[T], container: BaseDependencyProvider) -> T:
+    def get_instance(self, container: BaseDependencyProvider) -> T:
         instance = self._creator(container)
-        result = cast(type, instance)
-        return result
+        return instance

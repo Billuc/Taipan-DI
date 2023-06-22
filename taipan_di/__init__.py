@@ -6,12 +6,23 @@ from .errors import (
     TaipanUnregisteredError,
 )
 from .interfaces import BaseDependencyProvider
-from .classes import DependencyCollection, PipelineLink
+from .classes import (
+    DependencyCollection,
+    PipelineLink,
+    DependencyRegisterer,
+    FactoryRegisterer,
+    PipelineRegisterer,
+    SingletonRegisterer,
+)
 
 __all__ = [
     "BaseDependencyProvider",
     "DependencyCollection",
     "PipelineLink",
+    "DependencyRegisterer",
+    "FactoryRegisterer",
+    "PipelineRegisterer",
+    "SingletonRegisterer",
     "TaipanError",
     "TaipanInjectionError",
     "TaipanRegistrationError",

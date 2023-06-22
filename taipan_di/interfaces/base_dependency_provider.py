@@ -1,24 +1,14 @@
 import abc
-from typing import Type, TypeVar
+from typing import Any, Type, TypeVar, Protocol
 
 __all__ = ["BaseDependencyProvider"]
 
 T = TypeVar("T")
 
 
-class BaseDependencyProvider(metaclass=abc.ABCMeta):
-    @classmethod
-    def __subclasshook__(cls, subclass):
-        return (
-            hasattr(subclass, "contains")
-            and callable(subclass.contains)
-            and hasattr(subclass, "resolve")
-            and callable(subclass.resolve)
-            or NotImplemented
-        )
-
+class BaseDependencyProvider(Protocol):
     @abc.abstractmethod
-    def contains(self, type: Type) -> bool:
+    def contains(self, type: Type[Any]) -> bool:
         """
         Checks if the requested type is registered in the provider's services
         """
